@@ -36,7 +36,7 @@ func TestBucket_Put(t *testing.T) {
 			b := &Bucket{
 				closeCh:  tt.fields.closeCh,
 				Capacity: tt.fields.Capacity,
-				Tokens:   tt.fields.Tokens,
+				tokens:   tt.fields.Tokens,
 				Interval: tt.fields.Interval,
 				Inc:      tt.fields.Inc,
 			}
@@ -49,4 +49,50 @@ func TestBucket_Put(t *testing.T) {
 			fmt.Printf("%+v", b)
 		})
 	}
+}
+
+func TestBucket_TakeWait(t *testing.T) {
+	type fields struct {
+		closeCh  chan int
+		Capacity int64
+		tokens   int64
+		Interval time.Duration
+		Inc      int64
+	}
+	type args struct {
+		count   int64
+		maxWait time.Duration
+	}
+	tests := []struct {
+		name         string
+		fields       fields
+		args         args
+		wantTokens   int64
+		wantWaitTime time.Duration
+	}{
+		{
+			name: "base test",
+			args:args{5, 6*time.Second},
+			wantTokens:5,
+			wantWaitTime:5*time.Second,
+		},
+	}
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			b := New(10, 1, time.Second)
+			gotTokens, gotWaitTime := b.TakeWait(tt.args.count, tt.args.maxWait)
+			if gotTokens != tt.wantTokens {
+				t.Errorf("TakeWait() gotTokens = %v, want %v", gotTokens, tt.wantTokens)
+			}
+			if gotWaitTime != tt.wantWaitTime {
+				t.Errorf("TakeWait() gotWaitTime = %v, want %v", gotWaitTime, tt.wantWaitTime)
+			}
+		})
+	}
+}
+
+func TestBucket_New(t *testing.T) {
+	t.Run("base_test", func(t *testing.T) {
+		New(10, 1, time.Second)
+	})
 }
