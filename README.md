@@ -2,7 +2,7 @@
 
 This package provides a Golang lock-free implementation of the token-bucket rate limit algorithm. 
 
-````
+```
 func main() {
 	tb := New(100, 1, 1*time.Second) 
 
