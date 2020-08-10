@@ -1,5 +1,5 @@
 # ratelimiter
-----
+
 This package provides a Golang lock-free implementation of the token-bucket rate limit algorithm. 
 
 ````
