@@ -1,4 +1,6 @@
 # ratelimiter
+----
+This package provides a Golang implementation of the token-bucket rate limit algorithm. 
 
 ````
 func main() {
