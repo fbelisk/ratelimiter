@@ -1,6 +1,6 @@
 # ratelimiter
 
-使用lock-free实现的Go语言令牌桶算法限流器
+基于令牌桶算法的限流器，使用lock-free实现
 
 ### 示例
 ```
@@ -23,7 +23,7 @@ tb := New(10000, 1000, 1*time.Second)
 
 响应为实际可用令牌数量
 ```
-    tokens := tb.Take(10)
+tokens := tb.Take(10)
 ```
 
 ### TakeWait
@@ -33,5 +33,5 @@ tb := New(10000, 1000, 1*time.Second)
 
 响应为实际可用令牌数量和阻塞等待的时间
 ```
-    tokens, waitTime := tb.TakeWait(2, 5*time.Second)
+tokens, waitTime := tb.TakeWait(2, 5*time.Second)
 ```
