@@ -8,7 +8,7 @@ func main() {
 	tb := New(10000, 1000, 1*time.Second) 
 
 	for i := 0; i < 10; i++ {
-		tokens, waitTime := tb.TakeWait(2, 5*time.Second)
+		tokens, waitTime := tb.TakeWait(200, 1*time.Second)
 	}
 }
 
@@ -33,5 +33,5 @@ tokens := tb.Take(10)
 
 响应为实际可用令牌数量和阻塞等待的时间
 ```
-tokens, waitTime := tb.TakeWait(2, 5*time.Second)
+tokens, waitTime := tb.TakeWait(200, 1*time.Second)
 ```
